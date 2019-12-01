@@ -7,15 +7,16 @@
 const { Wolfbet } = require('wolfbet')
 
 let wolfbet = new Wolfbet('token')
-await client.getUser()
-await client.placeBet({
+await wolfbet.getUser()
+await wolfbet.placeBet({
                 currency: 'doge',
                 amount: 0.00000001,
                 bet_value: 49.5,
                 rule: 'under',
                 multiplier: 2
             })
-let stake = new Wolfbet('token')
+await wolfbet.getBalances()
+await wolfbet.getBalance('doge')
 ```
 
 ## Stake

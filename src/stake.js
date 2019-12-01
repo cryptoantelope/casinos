@@ -21,6 +21,25 @@ class Stake {
     }
 
 
+    async getBalance(currency) {
+        const balances = await this.getBalances()
+      
+        for(let i=0; i < balances.length; i++) {
+            const balance = balances[i].available
+            if(balance.currency === currency) return balance.amount
+        }
+      
+        return null
+    }
+
+      
+    async getBalances() {
+        const {user} = await this.getUser()
+      
+        return user.balances
+    }
+
+
     async getUser() {
         const data = '[{"operationName": "Balances", "variables": {"available": true}, "query": "query Balances($available: Boolean = false, $vault: Boolean = false) {user { id balances {available @include(if: $available) { currency amount} vault @include(if: $vault) { currency amount }} }}"}]'
         const res = await this.request(data)

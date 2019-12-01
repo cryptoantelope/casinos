@@ -13,6 +13,15 @@ describe('Wolbet', () => {
             const {user} = await wolfbet.getUser()
             should.exist(user)
         })
+        it('should return user balances', async () => {
+            const balances = await wolfbet.getBalances()
+            should.exist(balances)
+            balances.length.should.be.above(0)
+        })
+        it('should return user balance', async () => {
+            const balance = await wolfbet.getBalance('doge')
+            should.exist(balance)
+        })
     })
 
     describe('bet', () => {
@@ -36,6 +45,15 @@ describe('Stake', () => {
         it('should return user profile', async () => {
             const {user} = await stake.getUser()
             should.exist(user)
+        })
+        it('should return user balances', async () => {
+            const balances = await stake.getBalances()
+            should.exist(balances)
+            balances.length.should.be.above(0)
+        })
+        it('should return user balance', async () => {
+            const balance = await stake.getBalance('doge')
+            should.exist(balance)
         })
     })
 

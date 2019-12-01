@@ -22,6 +22,27 @@ class Wolfbet {
     }
 
 
+    async getBalance(currency) {
+        const balances = await this.getBalances()
+      
+        for(let i=0; i < balances.length; i++) {
+          const balance = balances[i]
+          
+          if(balance.currency === currency) return balance.amount
+        }
+      
+        return null
+    }
+
+      
+    async getBalances() {
+        const {user} = await this.getUser()
+        return user.balances
+    }
+
+
+      
+
     async getUser() {
         return await this.request('get', '/user/profile')
     }
