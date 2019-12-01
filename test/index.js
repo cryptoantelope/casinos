@@ -29,6 +29,7 @@ describe('Wolbet', () => {
     })
 })
 
+
 describe('Stake', () => {
 
     describe('user profile', () => {
@@ -47,6 +48,16 @@ describe('Stake', () => {
                 condition: 'above'
             })
             should.exist(diceRoll)
+        })
+    })
+
+    describe('vault', () => {
+        it('should deposit into vault', async () => {
+            const {createVaultDeposit} = await stake.depositToVault({
+                coin: 'doge',
+                amount: 0.00000001 
+            })
+            should.exist(createVaultDeposit)
         })
     })
 })

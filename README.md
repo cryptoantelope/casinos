@@ -31,6 +31,10 @@ await stake.placeBet({
                 target: 49.5,
                 condition: 'above'
             })
+await stake.depositToVault({
+                coin: 'doge',
+                amount: 0.00000001 
+            })
 ```
 
 ![dogecoin wallet](https://img.shields.io/badge/doge-DSXYTGtzi31b2MeLn8y5RgcD4fiN5x9xsM-blue)

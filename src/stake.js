@@ -37,6 +37,14 @@ class Stake {
     }
 
 
+    async depositToVault({coin, amount}) {
+        const data = `{"query": "mutation { createVaultDeposit( currency: ${coin} amount: ${amount} ) { id }}"}`
+        const res = await this.request(data)
+
+        return res.data.data
+    }
+
+
     async request(data={}, method='post') {
         const res = await this.client.request({method, data})
         if(res.status !== 200) throw new Error(data.statusText)
