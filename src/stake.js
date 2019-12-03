@@ -15,7 +15,8 @@ class Stake {
             httpsAgent: new https.Agent({ keepAlive }),
             headers: {
                 'x-access-token': this.token,
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                timeout: 5*1000
             }
         })
     }

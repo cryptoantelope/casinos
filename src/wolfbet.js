@@ -16,7 +16,8 @@ class Wolfbet {
             responseType: 'arraybuffer',
             headers: {
                 authorization: this.token,
-                'accept-encoding': 'gzip, deflate, br'
+                'accept-encoding': 'gzip, deflate, br',
+                timeout: 5*1000
             }
         })
     }
