@@ -1,10 +1,29 @@
 # Casinos
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/cryptoantelope?style=social)
+## Primedice
+
+```javascript
+const { Primedice } = require('casinos')
+
+let primedice = new Primedice('token')
+await primedice.getUser()
+await primedice.placeBet({
+                coin: 'doge',
+                amount: 0.00000001,
+                target: 49.5,
+                condition: 'above'
+            })
+await primedice.depositToVault({
+                coin: 'doge',
+                amount: 0.00000001 
+            })
+```
+
 ## Wolfbet
 
 ```javascript
-const { Wolfbet } = require('wolfbet')
+const { Wolfbet } = require('casinos')
 
 let wolfbet = new Wolfbet('token')
 await wolfbet.getUser()
@@ -22,7 +41,7 @@ await wolfbet.getBalance('doge')
 ## Stake
 
 ```javascript
-const { Stake } = require('wolfbet')
+const { Stake } = require('casinos')
 
 let stake = new Stake('token')
 await stake.getUser()
