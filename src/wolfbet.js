@@ -65,13 +65,16 @@ class Wolfbet {
 
 
     async request(method, url, params = {}) {
-        const res = await this.client.request({method, url, params})
-        if(res.status !== 200) throw new Error(data.statusText)
+        try {
+            const res = await this.client.request({method, url, params})
+            const decompressed = zlib.brotliDecompressSync(res.data)
+            const data = JSON.parse(decompressed.toString())
 
-        const decompressed = zlib.brotliDecompressSync(res.data)
-        const data = JSON.parse(decompressed.toString())
-
-        return data
+            return data
+        } catch(err) {
+            if(err.response) throw new Error(err.statusText)
+            throw new Error(err)
+        }
     }
 }
 

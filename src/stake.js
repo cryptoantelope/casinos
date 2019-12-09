@@ -66,10 +66,16 @@ class Stake {
 
 
     async request(data={}, method='post') {
-        const res = await this.client.request({method, data})
-        if(res.status !== 200) throw new Error(data.statusText)
+        try {
+            const res = await this.client.request({method, data})
 
-        return res
+            return res
+        } catch(err) {
+            if(err.response) throw new Error(err.response.data)
+            throw new Error(err)
+
+        }
+
     }
 }
 
