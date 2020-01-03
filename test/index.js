@@ -7,7 +7,7 @@ const stake = new Stake(process.env.STAKE_TOKEN)
 const wolfbet = new Wolfbet(process.env.WOLFBET_TOKEN, process.env.WOLFBET_COOKIE)
 
 
-describe('Wolbet', () => {
+describe('Wolfbet', () => {
 
     describe('user profile', () => {
         it('should return user profile', async () => {
