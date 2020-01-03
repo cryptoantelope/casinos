@@ -5,10 +5,11 @@ const zlib = require('zlib')
 
 
 class Wolfbet {
-    constructor(token = null, keepAlive = true) {
+    constructor(token = null, cookie = null, keepAlive = true) {
         if(!token) throw new Error('Please set token')
 
         this.token = `Bearer ${token}`
+        this.cookie = cookie
 
         this.client = axios.create({
             baseURL: 'https://wolf.bet/api/v1',
@@ -16,8 +17,10 @@ class Wolfbet {
             responseType: 'arraybuffer',
             headers: {
                 authorization: this.token,
+                timeout: 5*1000,
+                cookie: this.cookie,
                 'accept-encoding': 'gzip, deflate, br',
-                timeout: 5*1000
+                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.50 Safari/537.36'
             }
         })
     }
