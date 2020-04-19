@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/cryptoantelope/casinos#readme",
   "devDependencies": {
-    "mocha": "^6.2.2",
+    "mocha": "^6.2.3",
     "should": "^13.2.3"
   },
   "dependencies": {
