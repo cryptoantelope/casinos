@@ -37,6 +37,36 @@ describe('Wolfbet', () => {
             should.exist(bet)
         })
     })
+
+    if(process.env.WOLFBET_PASSWORD && process.env.WOLFBET_CODE) {
+        describe('vault', () => {
+            it('should be a deposit on vault', async () => {
+                const deposit = await wolfbet.depositOnVault({
+                    amount: 0.000001,
+                    currency: 'doge',
+                    password: process.env.WOLFBET_PASSWORD,
+                   code: process.env.WOLFBET_CODE
+                })
+                should.exist(deposit)
+
+                deposit.should.have.property('userBalance')
+                deposit.should.have.property('vaultBalance')
+            })
+
+            it('should be a withdraw from vault', async () => {
+                const deposit = await wolfbet.withdrawFromVault({
+                    amount: 0.000001,
+                    currency: 'doge',
+                    password: process.env.WOLFBET_PASSWORD,
+                    code: process.env.WOLFBET_CODE 
+                })
+                should.exist(deposit)
+
+                deposit.should.have.property('userBalance')
+               deposit.should.have.property('vaultBalance')
+	    })
+        })
+    }
 })
 
 
@@ -122,3 +152,5 @@ describe('Primedice', () => {
         })
     })
 })
+
+

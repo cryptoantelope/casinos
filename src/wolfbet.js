@@ -24,6 +24,8 @@ class Wolfbet {
     }
 
 
+
+
     async getBalance(currency) {
         const balances = await this.getBalances()
       
@@ -37,6 +39,8 @@ class Wolfbet {
     }
 
       
+
+
     async getBalances() {
         const {user} = await this.getUser()
         return user.balances
@@ -48,6 +52,8 @@ class Wolfbet {
     async getUser() {
         return await this.request('get', '/user/profile')
     }
+
+
 
 
     async placeBet({currency, amount, bet_value, rule, multiplier}) {
@@ -63,6 +69,36 @@ class Wolfbet {
 
         return await this.request('post', '/bet/place', bet)
     }
+
+
+
+
+    async depositOnVault({amount, currency, password, code}) {
+        const deposit = {
+            amount,
+            currency,
+            password,
+            code
+	}
+
+        return await this.request('post', '/user/vault/deposit', deposit)
+    }
+
+
+
+
+    async withdrawFromVault({amount, currency, password}) {
+       const withdraw = {
+           amount,
+           currency,
+           password,
+           code
+       }
+
+       return await this.request('post', '/user/vault/withdraw', withdraw)
+    }
+
+
 
 
     async request(method, url, params = {}) {
