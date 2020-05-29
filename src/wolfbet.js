@@ -101,13 +101,13 @@ class Wolfbet {
 
 
 
-    async request(method, url, params = {}) {
+    async request(method, url, params = {}, data={}) {
         try {
-            const res = await this.client.request({method, url, params})
+            const res = await this.client.request({method, url, params, data})
             const decompressed = zlib.brotliDecompressSync(res.data)
-            const data = JSON.parse(decompressed.toString())
+            const resData = JSON.parse(decompressed.toString())
 
-            return data
+            return resData
         } catch(err) {
             throw new Error(err)
         }
