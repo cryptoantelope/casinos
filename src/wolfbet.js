@@ -100,9 +100,17 @@ class Wolfbet {
 
 
 
-    async request(method, url, params = {}, data={}) {
+    async request(method, url, params = {}, data=null) {
+        const request = {
+            method,
+            url,
+            params
+            }
+
+        if(data) request.data = data
+
         try {
-            const res = await this.client.request({method, url, params, data})
+            const res = await this.client.request(request)
             const decompressed = zlib.brotliDecompressSync(res.data)
             const resData = JSON.parse(decompressed.toString())
 
