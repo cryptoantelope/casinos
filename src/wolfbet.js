@@ -109,7 +109,6 @@ class Wolfbet {
 
             return data
         } catch(err) {
-            if(err.response) throw new Error(err.statusText)
             throw new Error(err)
         }
     }
