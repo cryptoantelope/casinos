@@ -5,7 +5,7 @@ const zlib = require('zlib')
 
 
 class Wolfbet {
-    constructor(token = null, keepAlive = true) {
+    constructor(token = null, keepAlive = true, timeout = 5000) {
         if(!token) throw new Error('Please set token')
 
         this.token = `Bearer ${token}`
@@ -16,7 +16,7 @@ class Wolfbet {
             responseType: 'arraybuffer',
             headers: {
                 authorization: this.token,
-                timeout: 5*1000,
+                timeout,
                 'accept-encoding': 'gzip, deflate, br',
                 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.50 Safari/537.36'
             }
