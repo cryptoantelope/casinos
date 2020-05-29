@@ -56,15 +56,14 @@ class Wolfbet {
 
 
 
-    async placeBet({currency, amount, bet_value, rule, multiplier}) {
+    async placeBet({currency, game, amount, bet_value, rule, multiplier}) {
         const bet = {
-            amount: amount.toString(),
-            auto: 0,
-            bet_value: bet_value.toString(),
             currency,
-            game: "dice",
-            multiplier: multiplier.toString(),
+            game,
+            amount: amount.toString(),
+            bet_value: bet_value.toString(),
             rule
+            multiplier: multiplier.toString(),
         }
 
         return await this.request('post', '/bet/place', bet)
