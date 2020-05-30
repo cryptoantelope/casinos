@@ -5,6 +5,12 @@ const zlib = require('zlib')
 
 
 class Wolfbet {
+    /**
+     *
+     * @param {String} token
+     * @param {Boolean} keepAlive(default: true)
+     * @param {Number} timeout(default: 5000)
+     */
     constructor(token = null, keepAlive = true, timeout = 5000) {
         if(!token) throw new Error('Please set token')
 
@@ -25,7 +31,10 @@ class Wolfbet {
 
 
 
-
+    /**
+     *
+     * @param {String} currency, enum "btc", "eth", "ltc", "doge", "trx", "bch", "xrp"
+     */
     async getBalance(currency) {
         const balances = await this.getBalances()
       
@@ -55,8 +64,16 @@ class Wolfbet {
 
 
 
-
-    async placeBet({currency, game, amount, bet_value, rule, multiplier}) {
+    /**
+     *
+     * @params {String} currency, enum "btc", "eth", "ltc", "doge", "trx", "bch", "xrp"
+     * @params {String} game (default: "dice") 
+     * @params {Number} amount 
+     * @params {Number} bet_value
+     * @params {String} rule, enum "over" or "under"
+     * @params {Number} multiplier
+     */
+    async placeBet({currency, game='dice', amount, bet_value, rule, multiplier}) {
         const bet = {
             currency,
             game,
@@ -71,10 +88,16 @@ class Wolfbet {
 
 
 
-
+    /**
+     *
+     * @params {Number} amount
+     * @params {String} currency, enum "btc", "eth", "ltc", "doge", "trx", "bch", "xrp"
+     * @params {String} password
+     * @params {String} code two-factor authentication
+     */
     async depositOnVault({amount, currency, password, code}) {
         const deposit = {
-            amount,
+            amount: amount.toString(),
             currency,
             password,
             code
@@ -85,7 +108,13 @@ class Wolfbet {
 
 
 
-
+    /**
+     *
+     * @params {Number} amount
+     * @params {String} currency, enum "btc", "eth", "ltc", "doge", "trx", "bch", "xrp"
+     * @params {String} password
+     * @params {String} code two-factor authentication
+     */
     async withdrawFromVault({amount, currency, password}) {
        const withdraw = {
            amount,
@@ -99,7 +128,12 @@ class Wolfbet {
 
 
 
-
+    /**
+     * @params {String} method, enum 'get', 'post'
+     * @params {String} url
+     * @params {Object} params
+     * @params {Object} data (default: null)
+     */
     async request(method, url, params = {}, data=null) {
         const request = {
             method,
