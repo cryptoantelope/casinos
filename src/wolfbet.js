@@ -62,7 +62,7 @@ class Wolfbet {
             game,
             amount: amount.toString(),
             bet_value: bet_value.toString(),
-            rule
+            rule,
             multiplier: multiplier.toString(),
         }
 

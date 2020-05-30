@@ -2,12 +2,10 @@ const {Primedice, Stake, Wolfbet} = require('../')
 const should = require('should')
 
 
-const primedice = new Primedice(process.env.PRIMEDICE_TOKEN)
-const stake = new Stake(process.env.STAKE_TOKEN)
-const wolfbet = new Wolfbet(process.env.WOLFBET_TOKEN, process.env.WOLFBET_COOKIE)
 
 
 describe('Wolfbet', () => {
+    const wolfbet = new Wolfbet(process.env.WOLFBET_TOKEN)
 
     describe('user profile', () => {
         it('should return user profile', async () => {
@@ -29,6 +27,7 @@ describe('Wolfbet', () => {
         it('should place a bet', async () => {
             const {bet} = await wolfbet.placeBet({
                 currency: 'doge',
+                game: 'dice',
                 amount: 0.00000001,
                 bet_value: 49.5,
                 rule: 'under',
@@ -71,6 +70,7 @@ describe('Wolfbet', () => {
 
 
 describe('Stake', () => {
+    const stake = new Stake(process.env.STAKE_TOKEN)
 
     describe('user profile', () => {
         it('should return user profile', async () => {
@@ -113,6 +113,7 @@ describe('Stake', () => {
 
 
 describe('Primedice', () => {
+    const primedice = new Primedice(process.env.PRIMEDICE_TOKEN)
 
     describe('user profile', () => {
         it('should return user profile', async () => {
