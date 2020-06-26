@@ -7,23 +7,7 @@ const should = require('should')
 describe('Wolfbet', () => {
     const wolfbet = new Wolfbet(process.env.WOLFBET_TOKEN)
 
-    describe('user profile', () => {
-        it('should return user profile', async () => {
-            const {user} = await wolfbet.getUser()
-            should.exist(user)
-        })
-        it('should return user balances', async () => {
-            const balances = await wolfbet.getBalances()
-            should.exist(balances)
-            balances.length.should.be.above(0)
-        })
-        it('should return user balance', async () => {
-            const balance = await wolfbet.getBalance('doge')
-            should.exist(balance)
-        })
-    })
-
-    describe('bet', () => {
+    describe('Official endPoints', () => {
         it('should place a bet', async () => {
             const {bet} = await wolfbet.placeBet({
                 currency: 'doge',
@@ -35,7 +19,47 @@ describe('Wolfbet', () => {
             })
             should.exist(bet)
         })
+
+        it('should change client seed', async () => {
+            const {seed} = await wolfbet.changeClientSeed('abcdefghij')
+            should.exist(seed)
+        })
+
+        it('should return user stat race', async () => {
+            const {race} = await wolfbet.getUserStatsRace()
+            should.exist(race)
+        })
+
+        it('should return user stat bets', async () => {
+            const {dice} = await wolfbet.getUserStatsBets()
+            should.exist(dice)
+        })
+
+        it('should return user balances', async () => {
+            const {balances} = await wolfbet.getUserBalances()
+            should.exist(balances)
+            balances.length.should.be.above(0)
+        })
+
+        it('should change server seed', async () => {
+            const {server_seed_hashed} = await wolfbet.changeServerSeed()
+            should.exist(server_seed_hashed)
+        })
     })
+
+    describe('Unofficial endPoints', () => {
+        it('should return user profile', async () => {
+            const {user} = await wolfbet.getUser()
+            should.exist(user)
+        })
+        
+        it('should return user balance', async () => {
+            const balance = await wolfbet.getBalance('doge')
+            should.exist(balance)
+        })
+    })
+
+
 
     if(process.env.WOLFBET_PASSWORD && process.env.WOLFBET_CODE) {
         describe('vault', () => {
@@ -62,13 +86,13 @@ describe('Wolfbet', () => {
                 should.exist(deposit)
 
                 deposit.should.have.property('userBalance')
-               deposit.should.have.property('vaultBalance')
-	    })
+                deposit.should.have.property('vaultBalance')
+	        })
         })
     }
 })
 
-
+/*
 describe('Stake', () => {
     const stake = new Stake(process.env.STAKE_TOKEN)
 
@@ -155,3 +179,4 @@ describe('Primedice', () => {
 })
 
 
+*/
