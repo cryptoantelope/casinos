@@ -42,23 +42,23 @@ class Primedice {
 
 
     async getUser() {
-        const data = '[{"operationName": "Balances", "variables": {"available": true}, "query": "query Balances($available: Boolean = false, $vault: Boolean = false) {user { id balances {available @include(if: $available) { currency amount} vault @include(if: $vault) { currency amount }} }}"}]'
-        const res = await this.request(data)
-
-        return res.data[0].data
-    }
-
-
-    async placeBet({coin, amount, target, condition}) {
-        const data = `{"query": "mutation { primediceRoll(amount: ${amount}, target: ${target}, condition: ${condition}, currency: ${coin}) { id payout amountMultiplier payoutMultiplier createdAt nonce }}"}`
+        const data = "{\"operationName\":\"initialUserRequest\",\"variables\":{},\"query\":\"query initialUserRequest {\\n  user {\\n    ...UserAuth\\n    __typename\\n  }\\n}\\n\\nfragment UserAuth on User {\\n  id\\n  name\\n  email\\n  hasPhoneNumberVerified\\n  hasEmailVerified\\n  hasPassword\\n  intercomHash\\n  createdAt\\n  hasTfaEnabled\\n  mixpanelId\\n  hasOauth\\n  flags {\\n    flag\\n    __typename\\n  }\\n  roles {\\n    name\\n    __typename\\n  }\\n  balances {\\n    ...UserBalanceFragment\\n    __typename\\n  }\\n  activeClientSeed {\\n    id\\n    seed\\n    __typename\\n  }\\n  previousServerSeed {\\n    id\\n    seed\\n    __typename\\n  }\\n  activeServerSeed {\\n    id\\n    seedHash\\n    nextSeedHash\\n    nonce\\n    blocked\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment UserBalanceFragment on UserBalance {\\n  available {\\n    amount\\n    currency\\n    __typename\\n  }\\n  vault {\\n    amount\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\"}"
         const res = await this.request(data)
 
         return res.data.data
     }
 
 
-    async depositToVault({coin, amount}) {
-        const data = `{"query": "mutation { createVaultDeposit( currency: ${coin} amount: ${amount} ) { id }}"}`
+    async placeBet({currency, amount, target, condition}) {
+        const data = `{\"operationName\":\"PrimediceRoll\",\"variables\":{\"currency\":\"${currency}\",\"amount\":${amount},\"target\":${target},\"condition\":\"${condition}\"},\"query\":\"mutation PrimediceRoll($amount: Float!, $target: Float!, $condition: CasinoGamePrimediceConditionEnum!, $currency: CurrencyEnum!) {\\n  primediceRoll(amount: $amount, target: $target, condition: $condition, currency: $currency) {\\n    ...CasinoBetFragment\\n    state {\\n      ...PrimediceStateFragment\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CasinoBetFragment on CasinoBet {\\n  id\\n  active\\n  payoutMultiplier\\n  amountMultiplier\\n  amount\\n  payout\\n  updatedAt\\n  currency\\n  game\\n  user {\\n    id\\n    name\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment PrimediceStateFragment on CasinoGamePrimedice {\\n  result\\n  target\\n  condition\\n  __typename\\n}\\n\"}`
+        const res = await this.request(data)
+
+        return res.data.data
+    }
+
+
+    async depositToVault({currency, amount}) {
+        const data = `{\"operationName\":\"CreateVaultDeposit\",\"variables\":{\"currency\":\"${currency}\",\"amount\":${amount}},\"query\":\"mutation CreateVaultDeposit($amount: Float!, $currency: CurrencyEnum!) {\\n  createVaultDeposit(amount: $amount, currency: $currency) {\\n    id\\n    amount\\n    currency\\n    user {\\n      id\\n      balances {\\n        available {\\n          amount\\n          currency\\n          __typename\\n        }\\n        vault {\\n          amount\\n          currency\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"}`
         const res = await this.request(data)
 
         return res.data.data
