@@ -9,7 +9,7 @@ const { Primedice } = require('casinos')
 let primedice = new Primedice('token')
 await primedice.getUser()
 await primedice.placeBet({
-                coin: 'doge',
+                currency: 'doge',
                 amount: 0.00000001,
                 target: 49.5,
                 condition: 'above'
@@ -46,7 +46,7 @@ const { Stake } = require('casinos')
 let stake = new Stake('token')
 await stake.getUser()
 await stake.placeBet({
-                coin: 'doge',
+                currency: 'doge',
                 amount: 0.00000001,
                 target: 49.5,
                 condition: 'above'
@@ -66,4 +66,12 @@ Buy me a coffee
 doge: DSXYTGtzi31b2MeLn8y5RgcD4fiN5x9xsM
  eth: 0xB47adEe31A396B38876DdDdb30976c510283d94a
  bch: qps4cddu4cw9am0e8mtsw5xmrxx6pfyu9cfpm6chgg
+```
+
+Support with tips
+------
+```
+stake: cryptoantelope
+primedice: cryptoantelope
+wolf.bet: cryptoantelope
 ```
